@@ -4,9 +4,79 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>presupuesto</title>
 </head>
 <body>
   
+<div id="contenido" style="width: 100%;">
+  <h2 *ngIf="!TextBoxVisible" (dblclick)="ColocarTitulo()" style="text-align: center; font-size: 4em; margin-top: 0px;">{{ Titulo }}</h2>
+
+  <div *ngIf="TextBoxVisible" id="encabezado" style="display: block;">
+    <form>
+      <div class="row sm-4">
+        <label for="nombrePresupuesto" >Presupuesto</label>
+        <div class="col-sm-3">
+          <input id="nombrePresupuesto" name="nombrePresupuesto" type="text" [(ngModel)]="nombrePresupuesto" class="form-control-plaintext">
+        </div>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-primary mb-3" (click)="Guardar()">Guardar</button>
+      </div>
+    </form>    
+  </div>
+
+  <div id="infoPresupuesto" style="display: block; margin: 0 50px 0 50px">
+    <form>
+      <div class="row sm-4">
+        <label for="nombreArticulo">Nombre Presupuesto</label>
+        <div class="col-sm-3">
+          <input id="nombreArticulo" name="nombreArticulo" type="text" [(ngModel)]="Presupuesto.Nombre" class="form-control">
+        </div>
+      </div>
+      <div class="row sm-4">
+        <label for="descripcionPresupuesto">Descripcion Presupuesto</label>
+        <div class="col-sm-3">
+          <input id="descripcionPresupuesto" name="descripcionPresupuesto" type="text" [(ngModel)]="Presupuesto.Descripcion" class="form-control">
+        </div>
+      </div>
+      <div class="row sm-4">
+        <label for="montoPresupuesto">Monto</label>
+        <div class="col-sm-3">
+          <input id="montoPresupuesto" name="montoPresupuesto" type="number" [(ngModel)]="Presupuesto.Monto" class="form-control">
+        </div>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-primary mb-3" (click)="Agregar()">Agregar</button>
+      </div>
+    </form>    
+  </div>
+
+  <div id="tablaPresupuesto" style="margin: 0 200px 0 200px;">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Monto USD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of Presupuestos">
+          <td>{{p.Nombre}}</td>
+          <td>{{p.Descripcion}}</td>
+          <td>{{p.Monto}}</td>
+       </tr>
+      </tbody>
+
+      <tfoot>
+        <td></td>
+        <td>Total</td>
+        <td>{{ Monto }}</td>
+      </tfoot>
+    </table>
+  </div>
+  
+</div>
+
 </body>
 </html>
