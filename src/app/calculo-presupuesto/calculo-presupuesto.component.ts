@@ -8,9 +8,15 @@ import { Presupuesto } from '../Presupuesto';
 })
 export class CalculoPresupuestoComponent implements OnInit {
 
+  isPrinteable: boolean = false;
+
+  hiddenNuevo: boolean = true;
+
   TextBoxVisible: boolean = false;
 
-  Titulo: string;
+  FillData: boolean = false; // This to hide the textboxes when printing
+
+  Titulo: string = "Doble click para digitar nombre de Presupuesto";
   nombrePresupuesto: string = "";
 
   Presupuesto: Presupuesto = new Presupuesto();
@@ -21,10 +27,16 @@ export class CalculoPresupuestoComponent implements OnInit {
 
   constructor() { 
     this.TextBoxVisible = false;
-    this.Titulo = "Hola";
+
+    if (this.Presupuestos.length != 0) {
+      this.isPrinteable = true;
+    } else {
+      this.isPrinteable = false;
+    }
   }
 
   ngOnInit() {
+    
   }
 
   ColocarTitulo(): void {
@@ -51,4 +63,17 @@ export class CalculoPresupuestoComponent implements OnInit {
     this.Monto = monto;
   }
 
+  Imprimir() {
+    this.FillData = true;
+
+    setTimeout(this.Print, 500);
+  }
+
+  Print() {
+    print();
+  }
+
+  NuevoPresupuesto() {
+
+  }
 }

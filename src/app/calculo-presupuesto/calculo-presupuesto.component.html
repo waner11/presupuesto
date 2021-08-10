@@ -11,12 +11,12 @@
 <div id="contenido" style="width: 100%;">
   <h2 *ngIf="!TextBoxVisible" (dblclick)="ColocarTitulo()" style="text-align: center; font-size: 4em; margin-top: 0px;">{{ Titulo }}</h2>
 
-  <div *ngIf="TextBoxVisible" id="encabezado" style="display: block;">
-    <form>
-      <div class="row sm-4">
+  <div *ngIf="TextBoxVisible" id="encabezado" style="margin: 50px 0 50px 600px">
+    <form class="form-inline">
+      <div class="form-group mb-2">
         <label for="nombrePresupuesto" >Presupuesto</label>
-        <div class="col-sm-3">
-          <input id="nombrePresupuesto" name="nombrePresupuesto" type="text" [(ngModel)]="nombrePresupuesto" class="form-control-plaintext">
+        <div class="col-sm-4">
+          <input id="nombrePresupuesto" name="nombrePresupuesto" type="text" [(ngModel)]="nombrePresupuesto" class="form-control">
         </div>
       </div>
       <div class="col-auto">
@@ -25,34 +25,42 @@
     </form>    
   </div>
 
-  <div id="infoPresupuesto" style="display: block; margin: 0 50px 0 50px">
-    <form>
-      <div class="row sm-4">
+  <div [hidden]="FillData" id="infoPresupuesto" style="margin: 50px 200px 50px 200px">
+    <form class="form-inline">
+      <div class="form-group mb-2">
         <label for="nombreArticulo">Nombre Presupuesto</label>
         <div class="col-sm-3">
           <input id="nombreArticulo" name="nombreArticulo" type="text" [(ngModel)]="Presupuesto.Nombre" class="form-control">
         </div>
       </div>
-      <div class="row sm-4">
+
+      <div class="form-group mb-2">
         <label for="descripcionPresupuesto">Descripcion Presupuesto</label>
         <div class="col-sm-3">
           <input id="descripcionPresupuesto" name="descripcionPresupuesto" type="text" [(ngModel)]="Presupuesto.Descripcion" class="form-control">
         </div>
       </div>
-      <div class="row sm-4">
+
+      <div class="form-group mb-1">
         <label for="montoPresupuesto">Monto</label>
-        <div class="col-sm-3">
+        <div class="col-sm-1">
           <input id="montoPresupuesto" name="montoPresupuesto" type="number" [(ngModel)]="Presupuesto.Monto" class="form-control">
         </div>
       </div>
-      <div class="col-auto">
+
+      <div class="col-auto" style="margin-top: 10px;">
         <button type="button" class="btn btn-primary mb-3" (click)="Agregar()">Agregar</button>
       </div>
     </form>    
   </div>
 
-  <div id="tablaPresupuesto" style="margin: 0 200px 0 200px;">
-    <table class="table">
+  <div id="tablaPresupuesto" style="margin: 10px 200px 0 200px;">
+
+    <div id="nuevoPresupuesto" style="float: right;">
+      <button [hidden]="hiddenNuevo" type="button" class="btn btn-primary mb-3" (click)="NuevoPresupuesto()">Nuevo Presupuesto</button>
+    </div>
+
+    <table class="table table-bordered">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Nombre</th>
@@ -64,16 +72,20 @@
         <tr *ngFor="let p of Presupuestos">
           <td>{{p.Nombre}}</td>
           <td>{{p.Descripcion}}</td>
-          <td>{{p.Monto}}</td>
+          <td>{{p.Monto | number }}</td>
        </tr>
       </tbody>
 
       <tfoot>
         <td></td>
-        <td>Total</td>
-        <td>{{ Monto }}</td>
+        <td style="font-weight: bold;">Total</td>
+        <td style="font-weight: bold;">USD {{ Monto | number }}</td>
       </tfoot>
     </table>
+
+    <div class="col-auto" style="float: right; margin-top: 10px;">
+      <button [disabled]="isPrinteable" type="button" class="btn btn-secondary mb-3" (click)="Imprimir()">Imprimir</button>
+    </div>
   </div>
   
 </div>
